@@ -10,8 +10,6 @@ router.register(r'key_gen', keyGenView, basename="keyGenView")
 
 router.register(r'decrypt', DecryptViewSet, basename="DecryptView")
 
-# Wire up our API using automatic URL routing.
-
 urlpatterns = [
     path('', include(router.urls)),
 

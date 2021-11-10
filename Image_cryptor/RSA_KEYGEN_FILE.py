@@ -18,6 +18,8 @@ class KeyGen():
 
         print('path: ',path)
 
+    #  function to create private keys as PEM file
+
     def make_private_key(self,pk):
 
         fd = open(join(self.path, "private_key.pem"), "wb")
@@ -27,6 +29,8 @@ class KeyGen():
         fd.close()
 
         return self.path + 'private_key.pem'
+
+    #  function to create public keys as PEM file
 
     def make_public_key(self,pbk):
 

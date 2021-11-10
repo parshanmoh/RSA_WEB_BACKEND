@@ -14,6 +14,9 @@ from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
 
 
+
+# function for uploading files in Google Drive
+
 def GoogleUploadForKeys(nn):
 
     g_login = GoogleAuth()
@@ -40,6 +43,7 @@ class keyGenView(ViewSet):
 
     serializer_class = keyGenratorSerializer
 
+    # function for generating private keys and public keys then upload them in Google Drive
 
     def list(self,request):
 
@@ -61,8 +65,10 @@ class keyGenView(ViewSet):
 
         GoogleUploadForKeys(public_key_generate)
 
-
         return Response("ok")
+
+
+
 
 
 class UploadViewSet(ViewSet):
@@ -71,12 +77,11 @@ class UploadViewSet(ViewSet):
 
     def list(self, request):
 
-
-
         return Response("GET API")
 
-    def create(self, request):
+    #  function for files which are going to add the media repository
 
+    def create(self, request):
 
         data = request.data
 
@@ -96,6 +101,8 @@ class UploadViewSet(ViewSet):
 
             serializer.save()
 
+            # path the files in media/image
+
             data = serializer.data
 
             file_path = data['image']
@@ -105,6 +112,8 @@ class UploadViewSet(ViewSet):
             BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + file_path
 
             pbk = data['public_key']
+
+            # call encryption class then function with path of the file and public key to encrypt. then upload it in Google Drive
 
             pbk_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + pbk
 
@@ -116,11 +125,10 @@ class UploadViewSet(ViewSet):
 
             return Response("ok")
 
-
-
         else:
 
             return Response('its not ok!')
+
 
 
 
@@ -130,13 +138,9 @@ class DecryptViewSet(ViewSet):
 
     def list(self, request):
 
-
-
         return Response("GET API")
 
     def create(self, request):
-
-
 
         data = request.data
 
@@ -174,10 +178,7 @@ class DecryptViewSet(ViewSet):
 
             GoogleUploadForKeys(dec_file)
 
-
             return Response("ok")
-
-
 
         else:
 
